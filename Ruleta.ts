@@ -68,7 +68,7 @@ function iniciarApuesta() {
     if(ruleta.verificarApuesta(eleccionUsuario)) {
         console.log("Felicidades ganaste");
     }else {
-        console.log("lo siento sera la proxima");
+        console.log(`Lo siento será la proxima`);
     }
 }
 

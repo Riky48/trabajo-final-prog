@@ -54,7 +54,7 @@ function iniciarApuesta() {
         console.log("Felicidades ganaste");
     }
     else {
-        console.log("lo siento sera la proxima");
+        console.log("Lo siento ser\u00E1 la proxima");
     }
 }
 //INICIAR APUESTA
