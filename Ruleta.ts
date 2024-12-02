@@ -2,35 +2,35 @@ import { Juego } from "./Juego";
 import * as readlineSync from "readline-sync";
 
 export class Ruleta implements Juego {
-  private numeros: number[] = [];
-  private colores: Map<number, string>;
+    private numeros: number[] = [];
+    private colores: Map<number, string>;
 
-  constructor() {
+    constructor() {
     // Crear los numeros y asignar colores
     for (let i = 0; i <= 36; i++) {
-      this.numeros.push(i);
+        this.numeros.push(i);
     }
 
     // Colores: rojo, negro y 0 como verde
     this.colores = new Map();
     this.numeros.forEach((numero) => {
-      this.colores.set(
+    this.colores.set(
         numero,
         numero === 0 ? "verde" : numero % 2 === 0 ? "negro" : "rojo"
-      );
+        );
     });
-  }
+    }
 
-  jugar(apuesta: number): { mensaje: string; ganancia: number } {
+    jugar(apuesta: number): { mensaje: string; ganancia: number } {
     // Pedir al usuario un numero para apostar
     const numeroElegido = readlineSync.questionInt(
-      "Elige un número entre 0 y 36: "
+        "Elige un número entre 0 y 36: "
     );
     if (numeroElegido < 0 || numeroElegido > 36) {
-      return {
-        mensaje: "Número inválido. Inténtalo de nuevo.",
-        ganancia: -apuesta,
-      };
+        return {
+            mensaje: "Número inválido. Inténtalo de nuevo.",
+            ganancia: -apuesta,
+        };
     }
 
     console.log("La bola está girando...");
@@ -49,17 +49,17 @@ export class Ruleta implements Juego {
 
     if (numeroElegido === numeroGanador) {
       ganancia = apuesta * 35; // Pago estandar
-      mensajeResultado = `¡Felicidades! El número ganador fue ${numeroGanador} (${colorGanador}). Ganaste ${ganancia.toFixed(
+        mensajeResultado = `¡Felicidades! El número ganador fue ${numeroGanador} (${colorGanador}). Ganaste ${ganancia.toFixed(
         2
-      )}.`;
+        )}.`;
     } else {
-      mensajeResultado = `Perdiste. El número ganador fue ${numeroGanador} (${colorGanador}).`;
+        mensajeResultado = `Perdiste. El número ganador fue ${numeroGanador} (${colorGanador}).`;
     }
 
     return { mensaje: mensajeResultado, ganancia };
-  }
+    }
 
-  resultado(): string {
-    return "Ruleta finalizada";
-  }
+    resultado(): string {
+        return "Ruleta finalizada";
+    }
 }
