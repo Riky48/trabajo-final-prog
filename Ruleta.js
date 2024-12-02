@@ -46,7 +46,7 @@ function iniciarApuesta() {
     //VALIDAR COLOR ELEGIDO
     if (elegirColor !== "negro" && elegirColor !== "rojo") {
         console.log("por favor elige un color correcto: negro o rojo");
-        return; //vuelve a preguntar
+        return elegirColor; //vuelve a preguntar
     }
     //VERIFICAR APUESTA 
     var eleccionUsuario = { numero: numeroElegido, color: elegirColor };
