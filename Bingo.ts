@@ -41,14 +41,14 @@ export class Bingo implements Juego {
 
     if (haGanado) {
       return {
-        mensaje: `¡El jugador ha ganado! Se sorteó todos sus números en ${this.ronda} rondas. Premio: ${this.premio}`,
-        ganancia: this.premio,
-      };
+        mensaje: `¡El jugador ha ganado! Se sorteó todos sus números en ${this.ronda} rondas. Premio: ${this.premio}`;
+      ganancia: this.premio
+      } 
     } else {
       return {
-        mensaje: `Ronda ${this.ronda}: El número sorteado fue ${numeroSorteado}. ¡Sigue jugando!`,
+        mensaje:`Ronda ${this.ronda}: El número sorteado fue ${numeroSorteado}. ¡Sigue jugando!`,
         ganancia: -apuesta,
-      };
+      } 
     }
   }
 
