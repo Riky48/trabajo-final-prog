@@ -1,4 +1,4 @@
 export interface Juego {
-  jugar(apuesta: number): string;
+  jugar(apuesta: number): { mensaje: string; ganancia: number };
   resultado(): string;
 }

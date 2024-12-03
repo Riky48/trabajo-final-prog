@@ -4,7 +4,7 @@ import { Ruleta } from "./Ruleta";
 import { Jackpot777 } from "./Jackpot777";
 import { Juego } from "./Juego";
 import { Bananas } from "./Bananas";
-
+import { Bingo } from "./Bingo";
 // Registro de usuario
 function registrarUsuario(): Usuario {
   console.log("¡Bienvenido al Casino Las Vegas!");
@@ -20,6 +20,7 @@ const juegos: { [key: string]: Juego } = {
   "1": new Ruleta(),
   "2": new Jackpot777(),
   "3": new Bananas(),
+  "4": new Bingo(),
 };
 
 // Mostrar menu de juegos
@@ -28,12 +29,15 @@ function mostrarMenu(): string {
   console.log("1. Ruleta");
   console.log("2. Jackpot 777");
   console.log("3. BananasJackpot");
-  console.log("4. Salir");
+  console.log("4. Bingo");
+
+  console.log("5. Salir");
   return readlineSync.question("Ingresa el número del juego: ");
 }
 
 // Jugar a un juego seleccionado
 function jugarJuego(usuario: Usuario, juego: Juego): void {
+  let saldoIni = usuario.getSaldo();
   while (true) {
     const apuesta = readlineSync.questionFloat("¿Cuánto deseas apostar?: ");
 
@@ -49,6 +53,7 @@ function jugarJuego(usuario: Usuario, juego: Juego): void {
     console.log(`Tu saldo actual es: ${usuario.getSaldo()}`);
 
     if (usuario.getSaldo() <= 0) {
+      const totalPerdido = saldoIni - usuario.getSaldo();
       console.log("Te has quedado sin saldo. Volviendo al menu principal.");
       break;
     }
@@ -69,7 +74,7 @@ function main() {
 
   while (true) {
     const eleccion = mostrarMenu();
-    if (eleccion === "4") {
+    if (eleccion === "5") {
       console.log("Gracias por jugar. ¡Hasta la próxima!");
       break;
     }

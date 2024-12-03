@@ -10,7 +10,7 @@ export class Jackpot777 extends Tragamonedas implements Juego {
     if (!this.validarApuesta(apuesta)) {
       // Validamos que lo que apuesta es mas q la apuesta minima
       return {
-        mensaje: La apuesta mínima es ${this.apuestaMinima},
+        mensaje: `La apuesta mínima es ${this.apuestaMinima}`,
         ganancia: 0,
       };
     }
@@ -22,7 +22,7 @@ export class Jackpot777 extends Tragamonedas implements Juego {
       this.generarSimbolo(),
     ];
 
-    console.log(Resultado: ${resultados.join(" | ")});
+    console.log(`Resultado: ${resultados.join(" | ")}`);
 
     // Con every validamos si salen 3 "7"
     if (resultados.every((s) => s === "7")) {
@@ -35,7 +35,7 @@ export class Jackpot777 extends Tragamonedas implements Juego {
     ) {
       const ganancia = apuesta * 10;
       return {
-        mensaje: ¡Ganaste con tres símbolos iguales (${resultados[0]})!,
+        mensaje: `¡Ganaste con tres símbolos iguales (${resultados[0]})!`,
         ganancia,
       };
     } else {
@@ -51,5 +51,5 @@ export class Jackpot777 extends Tragamonedas implements Juego {
   private generarSimbolo(): string {
     const simbolos = ["7", "BAR", "CEREZA", "DIAMANTE"];
     return simbolos[Math.floor(Math.random() * simbolos.length)];
-  }
+  }
 }
