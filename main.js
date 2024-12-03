@@ -39,7 +39,18 @@ function jugarJuego(usuario, juego) {
         var apuesta = readlineSync.questionFloat("¿Cuánto deseas apostar?: ");
         if (!usuario.tieneSaldo(apuesta)) {
             console.log("No tienes saldo suficiente para esta apuesta.");
-            break; // Salir si no hay suficiente saldo
+            // Preguntar si quiere agregar más saldo
+            var agregarSaldo = readlineSync.keyInYNStrict("¿Quieres agregar más saldo?: ");
+            if (agregarSaldo) {
+                // Si quiere agregar saldo
+                var monto = readlineSync.questionFloat("¿Cuánto saldo deseas agregar?: ");
+                usuario.agregarSaldo(monto); // Asegúrate de tener un método para agregar saldo en la clase Usuario
+                console.log("Saldo actualizado. Tu nuevo saldo es: ".concat(usuario.getSaldo()));
+            }
+            else {
+                console.log("Volviendo al menú principal...");
+                break; // Salir si no quiere agregar saldo
+            }
         }
         var resultado = juego.jugar(apuesta);
         console.log(resultado.mensaje);
@@ -47,13 +58,19 @@ function jugarJuego(usuario, juego) {
         console.log("Tu saldo actual es: ".concat(usuario.getSaldo()));
         if (usuario.getSaldo() <= 0) {
             var totalPerdido = saldoIni - usuario.getSaldo();
-            console.log("Te has quedado sin saldo. Volviendo al menu principal.");
+            console.log("Te has quedado sin saldo. Perdiste ".concat(totalPerdido, " Volviendo al menu principal."));
             break;
         }
-        var seguir = readlineSync
-            .question("¿Quieres seguir jugando? (s/n): ")
-            .toLowerCase();
-        if (seguir !== "s") {
+        var seguir = void 0;
+        do {
+            seguir = readlineSync
+                .question("¿Quieres seguir jugando? (s/n): ")
+                .toLowerCase();
+            if (seguir !== "s" && seguir !== "n") {
+                console.log("Por favor, responde con 's' para sí o 'n' para no.");
+            }
+        } while (seguir !== "s" && seguir !== "n");
+        if (seguir === "n") {
             console.log("Volviendo al menú principal...");
             break;
         }

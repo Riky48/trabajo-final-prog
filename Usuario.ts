@@ -16,6 +16,9 @@ export class Usuario {
     this.saldo = saldo;
   }
 
+  public agregarSaldo(monto: number): void {
+    this.saldo += monto;
+  }
   public getNombreCompleto(): string {
     return `${this.nombre} ${this.apellido}`;
   }

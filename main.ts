@@ -43,7 +43,23 @@ function jugarJuego(usuario: Usuario, juego: Juego): void {
 
     if (!usuario.tieneSaldo(apuesta)) {
       console.log("No tienes saldo suficiente para esta apuesta.");
-      break; // Salir si no hay suficiente saldo
+      // Preguntar si quiere agregar más saldo
+      const agregarSaldo = readlineSync.keyInYNStrict(
+        "¿Quieres agregar más saldo?: "
+      );
+      if (agregarSaldo) {
+        // Si quiere agregar saldo
+        const monto = readlineSync.questionFloat(
+          "¿Cuánto saldo deseas agregar?: "
+        );
+        usuario.agregarSaldo(monto); // Asegúrate de tener un método para agregar saldo en la clase Usuario
+        console.log(
+          `Saldo actualizado. Tu nuevo saldo es: ${usuario.getSaldo()}`
+        );
+      } else {
+        console.log("Volviendo al menú principal...");
+        break; // Salir si no quiere agregar saldo
+      }
     }
 
     const resultado = juego.jugar(apuesta);
@@ -54,14 +70,23 @@ function jugarJuego(usuario: Usuario, juego: Juego): void {
 
     if (usuario.getSaldo() <= 0) {
       const totalPerdido = saldoIni - usuario.getSaldo();
-      console.log("Te has quedado sin saldo. Volviendo al menu principal.");
+      console.log(
+        `Te has quedado sin saldo. Perdiste ${totalPerdido} Volviendo al menu principal.`
+      );
       break;
     }
 
-    const seguir = readlineSync
-      .question("¿Quieres seguir jugando? (s/n): ")
-      .toLowerCase();
-    if (seguir !== "s") {
+    let seguir: string;
+    do {
+      seguir = readlineSync
+        .question("¿Quieres seguir jugando? (s/n): ")
+        .toLowerCase();
+      if (seguir !== "s" && seguir !== "n") {
+        console.log("Por favor, responde con 's' para sí o 'n' para no.");
+      }
+    } while (seguir !== "s" && seguir !== "n");
+
+    if (seguir === "n") {
       console.log("Volviendo al menú principal...");
       break;
     }

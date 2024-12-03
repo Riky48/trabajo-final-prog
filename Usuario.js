@@ -8,6 +8,9 @@ var Usuario = /** @class */ (function () {
         this.documento = documento;
         this.saldo = saldo;
     }
+    Usuario.prototype.agregarSaldo = function (monto) {
+        this.saldo += monto;
+    };
     Usuario.prototype.getNombreCompleto = function () {
         return "".concat(this.nombre, " ").concat(this.apellido);
     };
