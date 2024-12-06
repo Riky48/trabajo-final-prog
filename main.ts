@@ -5,6 +5,8 @@ import { Jackpot777 } from "./Jackpot777";
 import { Juego } from "./Juego";
 import { Bananas } from "./Bananas";
 import { Bingo } from "./Bingo";
+import * as fs from "fs";
+
 // Registro de usuario
 function registrarUsuario(): Usuario {
   console.log("¡Bienvenido al Casino Las Vegas!");
@@ -17,22 +19,38 @@ function registrarUsuario(): Usuario {
 
 // Juegos disponibles
 const juegos: { [key: string]: Juego } = {
-  "1": new Ruleta(),
-  "2": new Jackpot777(),
-  "3": new Bananas(),
-  "4": new Bingo(),
+  "2": new Ruleta(),
+  "3": new Jackpot777(),
+  "4": new Bananas(),
+  "5": new Bingo(),
 };
 
 // Mostrar menu de juegos
 function mostrarMenu(): string {
   console.log("\nSelecciona un juego:");
-  console.log("1. Ruleta");
-  console.log("2. Jackpot 777");
-  console.log("3. BananasJackpot");
-  console.log("4. Bingo");
+  console.log("1. Instrucciones Generales");
+  console.log("2. Ruleta");
+  console.log("3. Jackpot 777");
+  console.log("4. BananasJackpot");
+  console.log("5. Bingo");
 
-  console.log("5. Salir");
+  console.log("6. Salir");
   return readlineSync.question("Ingresa el número del juego: ");
+}
+
+// Mostrar instrucciones generales
+function mostrarInstrucciones(): void {
+  const rutaArchivo = "./instrucciones.txt"; // Ruta del archivo de instrucciones
+
+  if (fs.existsSync(rutaArchivo)) {
+    const instrucciones = fs.readFileSync(rutaArchivo, "utf-8");
+    console.log("\n--- INSTRUCCIONES GENERALES ---");
+    console.log(instrucciones);
+  } else {
+    console.log("El archivo de instrucciones no existe.");
+  }
+
+  readlineSync.question("Presiona Enter para volver al menú principal.");
 }
 
 // Jugar a un juego seleccionado
@@ -99,11 +117,15 @@ function main() {
 
   while (true) {
     const eleccion = mostrarMenu();
-    if (eleccion === "5") {
+    if (eleccion === "6") {
       console.log("Gracias por jugar. ¡Hasta la próxima!");
       break;
     }
 
+    if (eleccion === "1") {
+      mostrarInstrucciones();
+      continue; // Vuelve al menú principal después de mostrar las instrucciones
+    }
     // Guardamos en juegoSeleccionado lo que la persona elegio en la eleccion
     const juegoSeleccionado = juegos[eleccion];
     if (juegoSeleccionado) {

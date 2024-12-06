@@ -6,6 +6,7 @@ var Ruleta_1 = require("./Ruleta");
 var Jackpot777_1 = require("./Jackpot777");
 var Bananas_1 = require("./Bananas");
 var Bingo_1 = require("./Bingo");
+var fs = require("fs");
 // Registro de usuario
 function registrarUsuario() {
     console.log("¡Bienvenido al Casino Las Vegas!");
@@ -17,20 +18,34 @@ function registrarUsuario() {
 }
 // Juegos disponibles
 var juegos = {
-    "1": new Ruleta_1.Ruleta(),
-    "2": new Jackpot777_1.Jackpot777(),
-    "3": new Bananas_1.Bananas(),
-    "4": new Bingo_1.Bingo(),
+    "2": new Ruleta_1.Ruleta(),
+    "3": new Jackpot777_1.Jackpot777(),
+    "4": new Bananas_1.Bananas(),
+    "5": new Bingo_1.Bingo(),
 };
 // Mostrar menu de juegos
 function mostrarMenu() {
     console.log("\nSelecciona un juego:");
-    console.log("1. Ruleta");
-    console.log("2. Jackpot 777");
-    console.log("3. BananasJackpot");
-    console.log("4. Bingo");
-    console.log("5. Salir");
+    console.log("1. Instrucciones Generales");
+    console.log("2. Ruleta");
+    console.log("3. Jackpot 777");
+    console.log("4. BananasJackpot");
+    console.log("5. Bingo");
+    console.log("6. Salir");
     return readlineSync.question("Ingresa el número del juego: ");
+}
+// Mostrar instrucciones generales
+function mostrarInstrucciones() {
+    var rutaArchivo = "./instrucciones.txt"; // Ruta del archivo de instrucciones
+    if (fs.existsSync(rutaArchivo)) {
+        var instrucciones = fs.readFileSync(rutaArchivo, "utf-8");
+        console.log("\n--- INSTRUCCIONES GENERALES ---");
+        console.log(instrucciones);
+    }
+    else {
+        console.log("El archivo de instrucciones no existe.");
+    }
+    readlineSync.question("Presiona Enter para volver al menú principal.");
 }
 // Jugar a un juego seleccionado
 function jugarJuego(usuario, juego) {
@@ -81,9 +96,13 @@ function main() {
     var usuario = registrarUsuario();
     while (true) {
         var eleccion = mostrarMenu();
-        if (eleccion === "5") {
+        if (eleccion === "6") {
             console.log("Gracias por jugar. ¡Hasta la próxima!");
             break;
+        }
+        if (eleccion === "1") {
+            mostrarInstrucciones();
+            continue; // Vuelve al menú principal después de mostrar las instrucciones
         }
         // Guardamos en juegoSeleccionado lo que la persona elegio en la eleccion
         var juegoSeleccionado = juegos[eleccion];
